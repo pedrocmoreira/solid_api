@@ -6,6 +6,7 @@
     "prettier/prettier": 0,
     "camelcase": "off",
     "quotes": [2, "single", {"avoidEscape": true}],
-    "semi": [2, "always"]
+    "semi": [2, "always"],
+    "no-useless-constructor": "off"
   }
 }
