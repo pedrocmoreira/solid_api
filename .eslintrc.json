@@ -3,6 +3,9 @@
     "@rocketseat/eslint-config/node"
   ],
   "rules": {
-    "prettier/prettier": 0
+    "prettier/prettier": 0,
+    "camelcase": "off",
+    "quotes": [2, "single", {"avoidEscape": true}],
+    "semi": [2, "always"]
   }
 }
