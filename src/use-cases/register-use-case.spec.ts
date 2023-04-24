@@ -1,4 +1,4 @@
-import { expect, describe, it } from 'vitest';
+import { expect, describe, it, beforeEach } from 'vitest';
 import { compare } from 'bcryptjs';
 
 import { RegisterUseCase } from './register-use-case';
@@ -7,13 +7,18 @@ import { UserAlreadyExistsError } from './errors/user-already-exists-error';
 
 // teste unitário nunca vai ter nada com o banco de dados
 
+let usersRepository: InMemoryUsersRepository;
+let sut: RegisterUseCase;
+
 describe('Register Use Case', () => {
+  beforeEach(() => {
+    usersRepository = new InMemoryUsersRepository();
+    sut = new RegisterUseCase(usersRepository);
+  });
+
   // o usuário deve ser cadastrado
   it('it should be able to register', async () => {
-    const usersRepository = new InMemoryUsersRepository();
-    const registerUseCase = new RegisterUseCase(usersRepository);
-
-    const { user } = await registerUseCase.handle({
+    const { user } = await sut.handle({
       name: 'Jonh Doe',
       email: 'jonhdoe@email.com',
       password: '123456',
@@ -24,10 +29,7 @@ describe('Register Use Case', () => {
 
   // a senha do usuário deve ter um hash durante o registro 
   it('should hash user password upon registration', async () => {
-    const usersRepository = new InMemoryUsersRepository();
-    const registerUseCase = new RegisterUseCase(usersRepository);
-
-    const { user } = await registerUseCase.handle({
+    const { user } = await sut.handle({
       name: 'Jonh Doe',
       email: 'jonhdoe@email.com',
       password: '123456',
@@ -43,12 +45,9 @@ describe('Register Use Case', () => {
 
   // não deve ser possível criar um usuário com o mesmo email
   it('should not be able to register with same email twice', async () => {
-    const usersRepository = new InMemoryUsersRepository();
-    const registerUseCase = new RegisterUseCase(usersRepository);
-
     const email = 'jonhdoe@email.com';
 
-    await registerUseCase.handle({
+    await sut.handle({
       name: 'Jonh Doe',
       email,
       password: '123456',
@@ -56,7 +55,7 @@ describe('Register Use Case', () => {
 
 
     await expect(() =>
-      registerUseCase.handle({
+      sut.handle({
         name: 'Jonh Doe',
         email,
         password: '123456',
