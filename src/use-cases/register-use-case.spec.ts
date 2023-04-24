@@ -55,7 +55,7 @@ describe('Register Use Case', () => {
     });
 
 
-    expect(() =>
+    await expect(() =>
       registerUseCase.handle({
         name: 'Jonh Doe',
         email,
