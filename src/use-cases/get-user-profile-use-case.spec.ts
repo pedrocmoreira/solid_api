@@ -31,7 +31,7 @@ describe('Get User Profile Use Case', () => {
 
   // não deve retornar o perfil do usuário com o id errado
   it('it should be able to get user profile with wrong id', async () => {
-    expect(() => 
+    await expect(() => 
       sut.handle({
         userId: 'non-existin-id',
       }),
