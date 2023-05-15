@@ -41,7 +41,7 @@ describe('Search Gyms Use Case', () => {
 
     expect(gyms).toHaveLength(1)
     expect(gyms).toEqual([
-      expect.objectContaining({ gym_id: 'JavaScript Gym' }),
+      expect.objectContaining({ title: 'JavaScript Gym' }),
     ])
   });
 
@@ -63,8 +63,8 @@ describe('Search Gyms Use Case', () => {
 
     expect(gyms).toHaveLength(2)
     expect(gyms).toEqual([
-      expect.objectContaining({ gym_id: 'Javascript Gym 21' }),
-      expect.objectContaining({ gym_id: 'Javascript Gym 22' }),
+      expect.objectContaining({ title: 'Javascript Gym 21' }),
+      expect.objectContaining({ title: 'Javascript Gym 22' }),
     ])
   });
 });
