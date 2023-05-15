@@ -24,16 +24,16 @@ describe('Check-in Use Case', () => {
       phone: '',
       latitude: -23.55904,
       longitude: -46.800512,
-    })
+    });
 
-    //cria o mock
-    vi.useFakeTimers()
+    // cria o mock
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    //reseta o mock depois dos testes serem feitos
-    vi.useRealTimers()
-  })
+    // reseta o mock depois dos testes serem feitos
+    vi.useRealTimers();
+  });
 
   // o usuário pode fazer um check in
   it('it should be able to check in', async () => {
@@ -49,9 +49,9 @@ describe('Check-in Use Case', () => {
     expect(checkIn.id).toEqual(expect.any(String));
   });
 
-  //o usuário não pode fazer mais de um check-in no mesmo dia
+  // o usuário não pode fazer mais de um check-in no mesmo dia
   it('should not be able to check in twice in the same day', async () => {
-    vi.setSystemTime(new Date(2022, 0, 20, 8, 0, 0))
+    vi.setSystemTime(new Date(2022, 0, 20, 8, 0, 0));
 
     await sut.handle({
       gymId: 'gym-01',
@@ -69,9 +69,9 @@ describe('Check-in Use Case', () => {
 
   });
 
-  //o usuário pode fazer check-in mais de uma vez mas em dias diferentes
+  // o usuário pode fazer check-in mais de uma vez mas em dias diferentes
   it('should not be able to check in twice in different days', async () => {
-    vi.setSystemTime(new Date(2022, 0, 20, 8, 0, 0))
+    vi.setSystemTime(new Date(2022, 0, 20, 8, 0, 0));
 
 
     await sut.handle({
@@ -81,14 +81,14 @@ describe('Check-in Use Case', () => {
       userLongitude: -46.800512
     });
 
-    vi.setSystemTime(new Date(2022, 0, 21, 8, 0, 0))
+    vi.setSystemTime(new Date(2022, 0, 21, 8, 0, 0));
 
     const { checkIn } = await sut.handle({
       gymId: 'gym-01',
       userId: 'user-01',
       userLatitude: -23.559045,
       userLongitude: -46.800512
-    })
+    });
 
     expect(checkIn.id).toEqual(expect.any(String));
   });
@@ -102,7 +102,7 @@ describe('Check-in Use Case', () => {
       phone: '',
       latitude: new Decimal(-23.5519263),
       longitude: new Decimal(-46.7878682),
-    })
+    });
 
     await expect(() =>
       sut.handle({
@@ -115,7 +115,7 @@ describe('Check-in Use Case', () => {
   });
 });
 
-//TDD
+// TDD
 
 // Red: causar o erro
 // Green: resolver o erro
