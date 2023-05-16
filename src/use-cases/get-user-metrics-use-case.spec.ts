@@ -1,7 +1,6 @@
 import { expect, describe, it, beforeEach } from 'vitest';
 
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository';
-import { FetchUserCheckInsHistoryUseCase } from './fetch-user-check-ins-history-use-case';
 import { GetUserMetricsUseCase } from './get-user-metrics-use-case';
 
 let checkInsRepository: InMemoryCheckInsRepository;
@@ -19,12 +18,12 @@ describe('Get User Metrics Use Case', () => {
     await checkInsRepository.create({
       gym_id: 'gym-01',
       user_id: 'user-01',
-    })
+    });
 
     await checkInsRepository.create({
       gym_id: 'gym-02',
       user_id: 'user-01',
-    })
+    });
 
     const { checkInsCount } = await sut.handle({
       userId: 'user-01',
