@@ -18,7 +18,7 @@ export async function historyController(request: FastifyRequest, reply: FastifyR
     page
   });
 
-  return reply.status(201).send({
+  return reply.status(200).send({
     checkIns
   });
 }
