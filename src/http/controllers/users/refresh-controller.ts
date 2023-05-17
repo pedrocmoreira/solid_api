@@ -4,18 +4,24 @@ import { FastifyRequest, FastifyReply } from 'fastify';
 export async function refreshController(request: FastifyRequest, reply: FastifyReply) {
   await request.jwtVerify({ onlyCookie: true });
 
-  const token = await reply.jwtSign({}, {
-    sign: {
-      sub: request.user.sub,
-    }
-  });
+  const { role } = request.user;
 
-  const refreshToken = await reply.jwtSign({}, {
-    sign: {
-      sub: request.user.sub,
-      expiresIn: '1d'
-    }
-  });
+  const token = await reply.jwtSign(
+    { role },
+    {
+      sign: {
+        sub: request.user.sub,
+      }
+    });
+
+  const refreshToken = await reply.jwtSign(
+    { role },
+    {
+      sign: {
+        sub: request.user.sub,
+        expiresIn: '1d'
+      }
+    });
 
   return reply
     .setCookie('refreshToken', refreshToken, {
