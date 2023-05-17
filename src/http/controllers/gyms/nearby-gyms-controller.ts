@@ -5,11 +5,11 @@ import { makeFetchNearbyGymsUseCase } from '@/use-cases/factories/make-fetch-nea
 
 export async function nearbyGymsController(request: FastifyRequest, reply: FastifyReply) {
   const nearbyGymsSchema = z.object({
-    latitude: z.number().refine(value => {
+    latitude: z.coerce.number().refine(value => {
       return Math.abs(value) <= 90;
     }),
-    longitude: z.number().refine(value => {
-      return Math.abs(value) <= 90;
+    longitude: z.coerce.number().refine(value => {
+      return Math.abs(value) <= 180;
     })
   });
 
@@ -22,7 +22,7 @@ export async function nearbyGymsController(request: FastifyRequest, reply: Fasti
     userLongitude: longitude,
   });
 
-  return reply.status(201).send({
+  return reply.status(200).send({
     gyms
   });
 }
