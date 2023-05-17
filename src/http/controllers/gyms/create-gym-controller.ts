@@ -18,15 +18,15 @@ export async function createGymController(request: FastifyRequest, reply: Fastif
 
   const { title, description, phone, latitude, longitude } = registerBodySchema.parse(request.body);
 
-    const createGymUseCase = makeCreateGymUseCase();
+  const createGymUseCase = makeCreateGymUseCase();
 
-    await createGymUseCase.handle({
-      title,
-      description, 
-      phone,
-      latitude,
-      longitude,
-    });
+  await createGymUseCase.handle({
+    title,
+    description,
+    phone,
+    latitude,
+    longitude,
+  });
 
   return reply.status(201).send();
 }
