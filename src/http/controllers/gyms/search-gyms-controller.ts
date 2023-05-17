@@ -9,7 +9,7 @@ export async function searchGymsController(request: FastifyRequest, reply: Fasti
     page: z.coerce.number().min(1).default(1),
   });
 
-  const { query, page } = searchGymsSchema.parse(request.body);
+  const { query, page } = searchGymsSchema.parse(request.query);
 
   const searchGymsUseCase = makeSearchGymsUseCase();
 

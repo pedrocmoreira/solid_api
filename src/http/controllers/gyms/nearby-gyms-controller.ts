@@ -13,7 +13,7 @@ export async function nearbyGymsController(request: FastifyRequest, reply: Fasti
     })
   });
 
-  const { latitude, longitude } = nearbyGymsSchema.parse(request.body);
+  const { latitude, longitude } = nearbyGymsSchema.parse(request.query);
 
   const nearbyGymsUseCase = makeFetchNearbyGymsUseCase();
 
